@@ -7,3 +7,7 @@ body {
   color: rgb(212, 162, 224);
   font-family: Verdana;
 }
+
+a, a:visited {
+  color: rgb(146, 4, 202);
+}
