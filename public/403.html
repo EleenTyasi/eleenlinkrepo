@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bruh.</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+    h1 {text-align: center;}
+    p {text-align: center;}
+    </style>
+  </head>
+  <body>
+    <h1 id="headline">403 - Forbidden</h1>
+    <p id="phrase">you don't have the clearance level for this directory.</p>
+    <hr>
+    <p><a href="/">home</a> | <a href="/links">links</a> | <a href="/projects">projects</a> | <a href="/blog">blog</a></p>
+
+    <script>
+      const headlines = [
+        "bruh.",
+        "the frick you tryin'ta pull?",
+        "I should kill you where you stand.",
+        "I saw you dumbass. Get out.",
+        "I'm gonna give you til' the count of 10 to LEAVE.",
+        "FOOL! YOU'VE DOOMED YOURSELF!",
+        "Get lost.",
+        "frick outta here.",
+        "403. You ain't supposed to be here.",
+        "EMERGENCY CODE: DEATH",
+        "I'm gonna rm -rf / you.",
+        "Bruh. No."
+      ];
+
+      const phrases = [
+        "You shall not pass!",
+        "Dude. Uncool.",
+        "This is a new feeling. Pride. In somebody else. Shame it's being overshadowed by all this UNYIELDING RAGE.",
+        "Don't you have anything better to do?",
+        "gtfo.",
+        "GET OUT OF MY ROOM, I'M PLAYING MINECRAFT-",
+        "Dipshit.",
+        "This page is not for you.",
+        "This page's potions are too strong for a mortal.",
+        "You should leave. Something wicked comes.",
+        "I'mma be for real, there ain't anything here that you can access.",
+        "You think you're above consenquences?",
+        "... Try /void.html instead. Heard he listens for some codes...",
+        "This action has been logged to sudo. I'm watching you, dumbass."
+      ];
+
+      const randomHeadline = headlines[Math.floor(Math.random() * headlines.length)];
+      document.getElementById('headline').textContent = randomHeadline;
+
+      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      document.getElementById('phrase').textContent = randomPhrase;
+    </script>
+  </body>
+</html>

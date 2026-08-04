@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the void.</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+    body {
+      background-color: #000000;
+      color: rgb(212, 162, 224);
+      font-family: monospace;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .terminal-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    pre {
+      color: rgb(146, 4, 202);
+      font-size: 0.8rem;
+      line-height: 1.2;
+      text-shadow: 0 0 5px rgba(146, 4, 202, 0.6);
+    }
+    
+    .intro p {
+      margin: 5px 0;
+    }
+
+    #terminal-log {
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .log-line {
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+
+    .error-text {
+      color: #ff3366;
+    }
+
+    .success-text {
+      color: #33ff66;
+    }
+    
+    .input-line {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .cursor {
+      background-color: rgb(212, 162, 224);
+      color: black;
+      width: 8px;
+      height: 15px;
+      display: inline-block;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    
+    #hidden-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+      width: 0;
+      height: 0;
+    }
+
+    .fade-out {
+      animation: fadeOut 3s forwards;
+    }
+    
+    @keyframes fadeOut {
+      0% { opacity: 1; filter: blur(0px); }
+      50% { opacity: 0.8; filter: blur(1.5px); }
+      100% { opacity: 0; filter: blur(5px); display: none; }
+    }
+
+    a, a:visited {
+      color: rgb(146, 4, 202);
+      text-decoration: underline;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="terminal-container">
+      <div class="intro">
+        <!-- ASCII art showing the word VOID -->
+        <pre>
+██╗   ██╗ ██████╗ ██╗██████╗ 
+██║   ██║██╔═══██╗██║██╔══██╗
+██║   ██║██║   ██║██║██║  ██║
+╚██╗ ██╔╝██║   ██║██║██║  ██║
+ ╚████╔╝ ╚██████╔╝██║██████╔╝
+  ╚═══╝   ╚═════╝ ╚═╝╚═════╝ 
+        </pre>
+        <p>you stand before the void.</p>
+        <p>type a code to communicate (tap anywhere to open mobile keyboard).</p>
+        <p>type <strong>home</strong> to return to safety.</p>
+        <hr style="border: 1px dashed rgb(146, 4, 202); margin: 20px 0;">
+      </div>
+      
+      <div id="terminal-log"></div>
+      
+      <div class="input-line">
+        <span>>&nbsp;</span><span id="current-input"></span><span class="cursor"></span>
+      </div>
+    </div>
+
+    <!-- Hidden input to capture keystrokes reliably on both desktop and mobile -->
+    <input type="text" id="hidden-input" autofocus autocomplete="off" autocapitalize="off" spellcheck="false">
+
+    <script>
+      const hiddenInput = document.getElementById('hidden-input');
+      const currentInputSpan = document.getElementById('current-input');
+      const logContainer = document.getElementById('terminal-log');
+
+      // Keep focus on hidden input
+      document.addEventListener('click', () => {
+        hiddenInput.focus();
+      });
+
+      window.addEventListener('load', () => {
+        hiddenInput.focus();
+      });
+
+      hiddenInput.addEventListener('input', () => {
+        currentInputSpan.textContent = hiddenInput.value;
+      });
+
+      hiddenInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const value = hiddenInput.value;
+          hiddenInput.value = "";
+          currentInputSpan.textContent = "";
+          processCommand(value);
+        }
+      });
+
+      function printLog(text, statusClass = '', fade = false) {
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        if (statusClass) {
+          line.classList.add(statusClass);
+        }
+        if (fade) {
+          line.classList.add('fade-out');
+        }
+        line.innerHTML = text;
+        logContainer.appendChild(line);
+        
+        // Auto scroll to bottom
+        window.scrollTo(0, document.body.scrollHeight);
+        
+        if (fade) {
+          setTimeout(() => {
+            line.remove();
+          }, 3000);
+        }
+      }
+
+      // EASILY MAKE CODES HERE!
+      const commandRegistry = {
+        'help': {
+          response: "there is no help."
+        },
+        'clear': {
+          action: () => { logContainer.innerHTML = ""; }
+        },
+        'eleen': {
+          response: "... that cat who tamed us....",
+          statusClass: 'success-text'
+        },
+        'plushcat': {
+          response: "yes... she is indeed a plushie.",
+          statusClass: 'success-text'
+        },
+        '403': {
+          response: "i hate that guy. tell 403 to politely fuck off.",
+          statusClass: 'success-text'
+        },
+        '8426': {
+          response: "... the day i was imprisoned here.",
+          statusClass: 'success-text'
+        },
+        'downpurr': {
+          response: "i like cats... i guess.",
+          statusClass: 'success-text'
+        },
+        'hello': {
+          response: "... you greet the void, but nothing happens."
+        },
+        'hi': {
+          response: "... the void isn't much for smalltalk."
+        },
+        'exit': {
+          response: "returning to safety...",
+          action: () => {
+            setTimeout(() => { window.location.href = "/"; }, 1000);
+          }
+        },
+        'home': {
+          response: "returning to safety...",
+          action: () => {
+            setTimeout(() => { window.location.href = "/"; }, 1000);
+          }
+        },
+        // YouTube redirect example codes!
+        'rickroll': {
+          response: "you fool. you've summoned him here.",
+          action: () => {
+            setTimeout(() => { window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; }, 1200);
+          }
+        },
+        'potionseller': {
+          response: "my potions are too strong for you, traveler...",
+          action: () => {
+            setTimeout(() => { window.location.href = "https://www.youtube.com/watch?v=R_FQU4KzN7A"; }, 1200);
+          }
+        }
+      };
+
+      // RANDOM PHRASES FOR INVALID CODES
+      const invalidResponses = [
+        '...',
+        'You scream out: "{cmd}"... nothing happens.',
+        'Seems like nothing happens.',
+        'It stares into you.',
+        '... Nothing happens.',
+        'But nobody came.',
+        'You feel nothing happen.',
+        'An eerie quiet.',
+        '... what?',
+        'did... the void just blink?',
+        'You could not grasp the voids response.',
+        'Try later.',
+        'Silence apparently, is golden.'
+      ];
+
+      function processCommand(cmd) {
+        const trimmed = cmd.trim();
+        const cleanCmd = trimmed.toLowerCase();
+        
+        if (trimmed === '') return;
+        
+        printLog(`> ${trimmed}`); // Echo user input
+        
+        if (commandRegistry.hasOwnProperty(cleanCmd)) {
+          const entry = commandRegistry[cleanCmd];
+          
+          if (entry.response) {
+            printLog(entry.response, entry.statusClass || '');
+          }
+          
+          if (entry.action) {
+            entry.action();
+          }
+        } else {
+          // Unrecognized code: Pick random template, swap {cmd}, dissolve after 3 seconds
+          const template = invalidResponses[Math.floor(Math.random() * invalidResponses.length)];
+          const message = template.replace('{cmd}', trimmed);
+          printLog(message, 'error-text', true);
+        }
+      }
+    </script>
+  </body>
+</html>
