@@ -71,6 +71,14 @@
     "redirect": "https://www.youtube.com/watch?v=dLpRJEXuwR4",
     "statusClass": "friend-name"
   },
+  "fun_woomy": {
+    "response": "lovely friend of eleens, someone they care a lot about",
+    "statusClass": "friend-name"
+  },
+  "princequincy":{
+    "response": "Kindhearted bloonkin princess with a lot of affection.",
+    "statusClass": "friend-name"
+  },
   "yoshiracer_dylan":{
     "response": "Even without wings, you can still fly.",
     "statusClass": "friend-name"
