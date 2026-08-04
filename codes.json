@@ -71,5 +71,9 @@
   "potionseller": {
     "response": "my potions are too strong for you, traveler...",
     "redirect": "https://www.youtube.com/watch?v=R_FQU4KzN7A"
+  },
+  "givemecodes": {
+    "response": "No.",
+    "redirect": "https://eleenthetyasi.neocities.org/403"
   }
 }
