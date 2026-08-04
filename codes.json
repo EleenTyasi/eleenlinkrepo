@@ -87,5 +87,9 @@
   "bestkh3scene": {
     "response": "My guess is nobody's ever loved you before!",
     "redirect": "https://www.youtube.com/watch?v=ZAxG-gJqDwI"
+  },
+  "doom": {
+    "response": "CLOWNBOY! THATS WHAT YOU ARE!",
+    "redirect": "https://www.youtube.com/watch?v=OmcvTEynArQ"
   }
 }
