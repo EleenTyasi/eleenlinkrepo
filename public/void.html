@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the void.</title>
+    <title>void terminal online</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
     <style>
     body {
@@ -50,7 +50,9 @@
     .success-text {
       color: #33ff66;
     }
-    
+    .friend-name {
+      color: #df00ff;
+    }
     .input-line {
       display: flex;
       align-items: center;
@@ -176,6 +178,24 @@
 
       // EASILY MAKE CODES HERE!
       const commandRegistry = {
+        'nicothecinderace':{
+          response: "She's one of the few closer friends of eleen... has good taste in games.",
+          statusClass: 'friend-name'
+        },
+        'luna_aura':{
+          response: "the meddlesome magic mew... good at programming.",
+          statusClass: 'friend-name'
+        },
+        'cloudbow_rose':{
+          response: "wouldn't you like to know, weatherpony.",
+          statusClass: 'friend-name'
+        },
+        '1924':{
+          response: "... shut the fuck up-",
+          action: () => {
+            setTimeout(() => { window.location.href = "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"; }, 1200);
+          }
+        },
         'help': {
           response: "there is no help."
         },
