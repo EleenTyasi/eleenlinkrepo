@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Generate blog list
+        run: node scripts/generate-blog-list.js
+
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v1
         with:
