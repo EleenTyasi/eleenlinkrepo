@@ -66,6 +66,11 @@
     "response":"Someone who has a kind heart, troubled. A grand sense of humor.",
     "statusClass": "friend-name"
   },
+  "danny5247":{
+    "response": "the leader of the ubers, legendary for impossible feats.",
+    "redirect": "https://www.youtube.com/watch?v=dLpRJEXuwR4",
+    "statusClass": "friend-name"
+  },
   "yoshiracer_dylan":{
     "response": "Even without wings, you can still fly.",
     "statusClass": "friend-name"
