@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Not Found</title>
+    <title>but nobody came</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
     <style>
     h1 {text-align: center;}
@@ -11,12 +11,39 @@
     </style>
   </head>
   <body>
-    <h1>holy shit, how the hell did you get here</h1>
+    <h1 id="headline">holy shit, how the hell did you get here</h1>
     <p id="phrase">oh shit, oh fuck, oh god damn it, this page ain't a feckin' thing</p>
     <hr>
     <p><a href="/">home</a> | <a href="/links">links</a> | <a href="/projects">projects</a> | <a href="/blog">blog</a></p>
 
     <script>
+      const headlines = [
+        "holy shit, how the hell did you get here",
+        "well, this is awkward.",
+        "uh oh...",
+        "*angry 404 noise*",
+        "go back to www.newgrounds.com, it's safer there.",
+        "and yet, nobody came.",
+        "But nobody came.",
+        "I eated ur page. sorry.",
+        "Now, why would you even visit here?",
+        "it's dissapointing, but you cannot go no farther.",
+        "STOP! Prevent your death! You require special cave diving gear to go any further. -wait, this isn't a cave. oh well, you can't go any further.",
+        "No highly esteemed deed is commemorated here. . Nothing valued is here.",
+        "nope. chuck testa.",
+        "hello gentlemen. all ur 404's now belong to us.",
+        "404 - page not found",
+        "the system is down, yo.",
+        "you're idiot. page no exist on this plane of existence.",
+        "moons haunted. *reloads shotgun*",
+        "give me back my [HYPERLINK BLOCKED]!",
+        "you lost or something?",
+        "um... can you not?",
+        "who the hell- GET OUT!",
+        "and yet, this page leads nowhere.",
+        "CONGRATULATIONS, YOU'VE WON! CONGRATULATIONS, YOU'VE WON! nothing. you fool."
+      ];
+
       const phrases = [
         "oh shit, oh fuck, oh god damn it, this page ain't a feckin' thing",
         "neocities, we have a problem.",
@@ -24,14 +51,28 @@
         "nine out of ten dentists agree, this page does NOT exist",
         "of all the broken links, on all the neocities, you had to walk into this one.",
         "quoth the neocities: 404",
+        "fun fact: eleen is 27.",
+        "fun fact: eleen is a content creator on the roblox game Project: Afternight.",
+        "fun fact: there are no rats in alberta.",
+        "fun fact: use code plushcat for 10% off at advanced.gg, maybe",
+        "fun fact: i lied, there is no fun fact",
+        "fun fact: You're ugly.",
+        "fun fact: eleen's favorite tetris setup is the perfect clear setup.",
+        "fun fact: eleen's most common tetris setup is the D-T Cannon.",
+        "fun fact: eleen appears in a game called Downpurr. check it out on steam by following the link in /projects",
+        "fun fact: there are twenty three different 404 phrases.",
+        "fun fact: there are twenty four different 404 headlines.",
         "look at all these 404s...",
         "im sorry dave, i can't let you view this.",
         "null: fuck off, lmao this shit don't exist",
         "where did the page go???",
-        "PAGE IS NOT REAL USER IS YOU THIS IS REFERENCE FLAG IS WIN",
+        "PAGE IS NOT REAL | USER IS YOU | THIS IS REFERENCE | FLAG IS WIN",
         "you rolled a nat 1 on your perception check, nothing but a single chicken is here"
       ];
       
+      const randomHeadline = headlines[Math.floor(Math.random() * headlines.length)];
+      document.getElementById('headline').textContent = randomHeadline;
+
       const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
       document.getElementById('phrase').textContent = randomPhrase;
     </script>
