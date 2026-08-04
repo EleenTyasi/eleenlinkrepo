@@ -54,6 +54,10 @@
     "response": "wouldn't you like to know, weatherpony.",
     "statusClass": "friend-name"
   },
+  "zazagrub": {
+    "response": "A lovely creature that eleen pays a lot of respect to.",
+    "statusClass": "friend-name"
+  },
   "1924": {
     "response": "... shut the fuck up-",
     "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
@@ -75,5 +79,9 @@
   "givemecodes": {
     "response": "No.",
     "redirect": "https://eleenthetyasi.neocities.org/403"
+  },
+  "afternight": {
+    "response": "a rofnf game... one that eleen much likes.",
+    "redirect": "https://www.roblox.com/games/13042495892/Project-Afternight"
   }
 }
