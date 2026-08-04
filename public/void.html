@@ -176,83 +176,115 @@
         }
       }
 
-      // EASILY MAKE CODES HERE!
+      // One-way hash function (DJB2)
+      function hash(str) {
+        let h = 5381;
+        for (let i = 0; i < str.length; i++) {
+          h = ((h << 5) + h) + str.charCodeAt(i);
+        }
+        return (h >>> 0).toString(36);
+      }
+
+      // XOR Decryption
+      function crypt(input, key) {
+        let output = "";
+        for (let i = 0; i < input.length; i++) {
+          const charCode = input.charCodeAt(i) ^ key.charCodeAt(i % key.length);
+          output += String.fromCharCode(charCode);
+        }
+        return output;
+      }
+
+      function decryptResponse(base64Text, key) {
+        try {
+          const decoded = atob(base64Text);
+          return crypt(decoded, key);
+        } catch (e) {
+          return "[DECRYPTION FAILED]";
+        }
+      }
+
       const commandRegistry = {
-        'nicothecinderace':{
-          response: "She's one of the few closer friends of eleen... has good taste in games.",
-          statusClass: 'friend-name'
-        },
-        'luna_aura':{
-          response: "the meddlesome magic mew... good at programming.",
-          statusClass: 'friend-name'
-        },
-        'cloudbow_rose':{
-          response: "wouldn't you like to know, weatherpony.",
-          statusClass: 'friend-name'
-        },
-        '1924':{
-          response: "... shut the fuck up-",
-          action: () => {
-            setTimeout(() => { window.location.href = "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"; }, 1200);
-          }
-        },
+        // Plaintext utility commands (no need to hide)
         'help': {
           response: "there is no help."
         },
         'clear': {
           action: () => { logContainer.innerHTML = ""; }
         },
-        'eleen': {
-          response: "... that cat who tamed us....",
-          statusClass: 'success-text'
-        },
-        'plushcat': {
-          response: "yes... she is indeed a plushie.",
-          statusClass: 'success-text'
-        },
-        '403': {
-          response: "i hate that guy. tell 403 to politely fuck off.",
-          statusClass: 'success-text'
-        },
-        '8426': {
-          response: "... the day i was imprisoned here.",
-          statusClass: 'success-text'
-        },
-        'downpurr': {
-          response: "i like cats... i guess.",
-          statusClass: 'success-text'
-        },
-        'hello': {
-          response: "... you greet the void, but nothing happens."
-        },
-        'hi': {
-          response: "... the void isn't much for smalltalk."
-        },
         'exit': {
           response: "returning to safety...",
-          action: () => {
-            setTimeout(() => { window.location.href = "/"; }, 1000);
-          }
+          action: () => { setTimeout(() => { window.location.href = "/"; }, 1000); }
         },
         'home': {
           response: "returning to safety...",
-          action: () => {
-            setTimeout(() => { window.location.href = "/"; }, 1000);
-          }
+          action: () => { setTimeout(() => { window.location.href = "/"; }, 1000); }
         },
-        // YouTube redirect example codes!
-        'rickroll': {
-          response: "you fool. you've summoned him here.",
-          action: () => {
-            setTimeout(() => { window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; }, 1200);
-          }
+
+        // OBSCURED_CODES_START
+        '375zlo': {
+          response: "XRBbVURWFERbVUQTU0VKGhBHUVxfFAQDBxBHWxBDW1xaQFVfTRBVQVNYFF9VUh4=",
+          statusClass: "success-text"
         },
-        'potionseller': {
-          response: "my potions are too strong for you, traveler...",
-          action: () => {
-            setTimeout(() => { window.location.href = "https://www.youtube.com/watch?v=R_FQU4KzN7A"; }, 1200);
-          }
+        'yjbh9x': {
+          response: "HxccFEJRR0ARTVpREV9HV1oZR0Qc",
+          redirect: "WU1GREIDHRtIVkdARBdQUR4IBn17c3B9X1pAVw5KWwlAcHECRlt5Y15PV2FaXEhC"
+        },
+        'yjgr6h': {
+          response: "FhocFkxcVxZcVUsWURRFV0sUW1tIRltFV1pXUhhcV0RdGg==",
+          statusClass: "success-text"
+        },
+        '49k83y': {
+          response: "S0JLRRoNDRFFDQQYRRIGCkwRBAMACEUQHUtCS0s=",
+          statusClass: "success-text"
+        },
+        'tsa2g9': {
+          response: "CQkGXUZNQQcYCVUaG0MIGhQJEBdIAkEEHBkGGwEGTw==",
+          statusClass: "success-text"
+        },
+        'iqhw6e': {
+          response: "DU8bBxsQUhEFGwRAXltSG0QIAgsDBlw=",
+          statusClass: "success-text"
+        },
+        'ej8vd9': {
+          response: "PQEGSAdICg0MTgsDUhULAE4PBhhUCwkMGgsWRRQTCgAADRBPGw5FBgULAQtcT01FBggQTxMHCgdJGgUWBgRDDABJBA4ZDRZN",
+          statusClass: "friend-name"
+        },
+        '10isjw0': {
+          response: "GQ0XQxocBhsEAVxDHQsBSQIDUg0bBgtOHkUfAhwcRA8MEx0RFwFKR0NFARcACgoOQw==",
+          statusClass: "success-text"
+        },
+        'ykkoms': {
+          response: "HgcNTgwOHAYPHUgaBU8FCxgMGgsOBkZOC08DBwQLSAMLAUY=",
+          statusClass: "success-text"
+        },
+        '1mrvgij': {
+          response: "FwcWUwkVFQoBFlMCHRcPCQEaABoBQwAVUwgRFwAdFhcMWg==",
+          statusClass: "success-text"
+        },
+        '3q1flp': {
+          response: "GB0LQTIEERYNCQYBDDpBGBMGBRZODDoWW1xPTBIBDjtBFAZBHAcBBi0AGB8IAhJA",
+          statusClass: "friend-name"
+        },
+        '1q8fdfg': {
+          response: "FAMaGQAMSAN/CwAGRQ8FBBBEFgBXNBwABElDGwoUEAoKBS8dAQpL",
+          statusClass: "friend-name"
+        },
+        '4bj995': {
+          response: "RktCTBYHEEwLHQ0AGEwbAABMGgABAUBMDR0RTAIAHA0FAghIDQ0cHw0LH0I="
+        },
+        '3ho9i': {
+          response: "RkdGSRwBDUkeBgENSAAbB08dSAQdCgBJDgYaSRsECQUEHQkFA0c="
+        },
+        'dzfhvr': {
+          response: "CwYWSxQAAwBcSRoEB0gaCVIaFgYfAAIJFkkLAh9PBAkADE0=",
+          redirect: "Gh0XGwFVQ0MFHhRFCwAZGAcLBkURAAFDBQgXCBpQGlEWOBRfBVY7CyoKMg=="
+        },
+        '1k02l8l': {
+          response: "HRZUGQAaGgoCH0UTAgpUHQABUxYYHgocF08SBh1OCgoZQEUGAg4CDAMLAUtCQg==",
+          redirect: "GBsAGRxUXEobGxJcCQABHRoMFksPAwhdBw4ACgdRBVg+MyMjJVs/EyFZMg=="
         }
+// OBSCURED_CODES_END
       };
 
       // RANDOM PHRASES FOR INVALID CODES
@@ -280,11 +312,27 @@
         
         printLog(`> ${trimmed}`); // Echo user input
         
+        const hashedCmd = hash(cleanCmd);
+        
         if (commandRegistry.hasOwnProperty(cleanCmd)) {
           const entry = commandRegistry[cleanCmd];
-          
           if (entry.response) {
             printLog(entry.response, entry.statusClass || '');
+          }
+          if (entry.action) {
+            entry.action();
+          }
+        } else if (commandRegistry.hasOwnProperty(hashedCmd)) {
+          const entry = commandRegistry[hashedCmd];
+          
+          if (entry.response) {
+            const decryptedResponse = decryptResponse(entry.response, cleanCmd);
+            printLog(decryptedResponse, entry.statusClass || '');
+          }
+          
+          if (entry.redirect) {
+            const decryptedRedirect = decryptResponse(entry.redirect, cleanCmd);
+            setTimeout(() => { window.location.href = decryptedRedirect; }, 1200);
           }
           
           if (entry.action) {

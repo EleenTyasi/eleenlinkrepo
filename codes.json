@@ -1,0 +1,75 @@
+{
+  "eleen": {
+    "response": "... that cat who tamed us....",
+    "statusClass": "success-text"
+  },
+  "plushcat": {
+    "response": "yes... she is indeed a plushie.",
+    "statusClass": "success-text"
+  },
+  "403": {
+    "response": "i hate that guy. tell 403 to politely fuck off.",
+    "statusClass": "success-text"
+  },
+  "8426": {
+    "response": "... the day i was imprisoned here.",
+    "statusClass": "success-text"
+  },
+  "downpurr": {
+    "response": "i like cats... i guess.",
+    "statusClass": "success-text"
+  },
+  "nicothecinderace": {
+    "response": "She's one of the few closer friends of eleen... has good taste in games.",
+    "statusClass": "friend-name"
+  },
+  "mercredi": {
+    "response": "the hybrid. one of nico's many favored... strong.",
+    "statusClass": "success-text"
+  },
+  "john":
+  {
+    "response": "the father to mercredi. a kind man.",
+    "statusClass": "success-text"
+  },
+  "cossete": {
+    "response": "the lapine girlfriend of mercredi.",
+    "statusClass": "success-text"
+  },
+  "fawfulsminion":
+  {
+    "response": "known lover of nico. has good videos. eleen watches his stuff constantly.",
+    "statusClass": "friend-name"
+  },
+  "buckbumble":
+  {
+    "response": "it's time to rock with the bickity buck bumble-",
+    "redirect": "https://www.youtube.com/watch?v=K0DDY299Ly4"
+  },
+  "luna_aura": {
+    "response": "the meddlesome magic mew... good at programming.",
+    "statusClass": "friend-name"
+  },
+  "cloudbow_rose": {
+    "response": "wouldn't you like to know, weatherpony.",
+    "statusClass": "friend-name"
+  },
+  "1924": {
+    "response": "... shut the fuck up-",
+    "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
+  },
+  "hello": {
+    "response": "... you greet the void, but nothing happens."
+  },
+  "hi": {
+    "response": "... the void isn't much for smalltalk."
+  },
+  "rickroll": {
+    "response": "you fool. you've summoned him here.",
+    "redirect": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "potionseller": {
+    "response": "my potions are too strong for you, traveler...",
+    "redirect": "https://www.youtube.com/watch?v=R_FQU4KzN7A"
+  }
+}
