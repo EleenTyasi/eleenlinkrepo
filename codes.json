@@ -82,6 +82,10 @@
   "yoshiracer_dylan":{
     "response": "Even without wings, you can still fly.",
     "statusClass": "friend-name"
+  },
+  "dandyroot":{
+    "response": "A possum, or a leafeon. Has a bright personality and attitude.",
+    "statusClass": "friend-name"
   },  
   "69": {
     "response": "Nice."
