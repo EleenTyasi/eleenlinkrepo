@@ -66,6 +66,24 @@
     "response":"Someone who has a kind heart, troubled. A grand sense of humor.",
     "statusClass": "friend-name"
   },
+  "yoshiracer_dylan":{
+    "response": "Even without wings, you can still fly.",
+    "statusClass": "friend-name"
+  },  
+  "69": {
+    "response": "Nice."
+  },
+  "420": {
+    "response": "Nice."
+  },
+  "87": {
+    "response": "WAS THAT THE BITE OF 87?!",
+    "redirect": "https://www.youtube.com/watch?v=NMN9vACGcyE"
+  },
+  "67": {
+    "response": "... shut the fuck up-",
+    "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
+  },
   "1924": {
     "response": "... shut the fuck up-",
     "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
