@@ -58,6 +58,14 @@
     "response": "A lovely creature that eleen pays a lot of respect to.",
     "statusClass": "friend-name"
   },
+  "thefastestlink": {
+    "response": "A man of few words... Tends to fluctuate between games...",
+    "statusClass": "friend-name"
+  },
+  "chocolian":{
+    "response":"Someone who has a kind heart, troubled. A grand sense of humor.",
+    "statusClass": "friend-name"
+  },
   "1924": {
     "response": "... shut the fuck up-",
     "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
