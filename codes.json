@@ -27,6 +27,10 @@
     "response": "the hybrid. one of nico's many favored... strong.",
     "statusClass": "success-text"
   },
+  "sv_cheats 1": {
+    "response": "Really now? Trying to cheat are we? Am dissapointed.",
+    "statusClass": "success-text"
+  },
   "john":
   {
     "response": "the father to mercredi. a kind man.",
@@ -75,6 +79,10 @@
     "response": "lovely friend of eleens, someone they care a lot about",
     "statusClass": "friend-name"
   },
+  "clowitty":{
+    "response": "this has got to be one of the cheesiest ways to say i love you",
+    "statusClass": "friend-name"
+  },
   "princequincy":{
     "response": "Kindhearted bloonkin princess with a lot of affection.",
     "statusClass": "friend-name"
@@ -86,7 +94,21 @@
   "dandyroot":{
     "response": "A possum, or a leafeon. Has a bright personality and attitude.",
     "statusClass": "friend-name"
-  },  
+  },
+  "toadbup": {
+    "response": "I like the purple mushroom man too. Hey, if he sees this, what kinda code should I add here for him?"
+  },
+  "bonzibuddy": {
+    "response": "the best spyware ever <3",
+    "redirect": "https://www.youtube.com/watch?v=ekfuzj1zDZo"
+  },
+  "mime":{
+    "response": "ITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPY"
+  },
+  "bluebloodybastard":{
+    "response": "oh yeah, sonic.exe is a thing.",
+    "redirect": "https://youtu.be/wpqwWWX4P1o"
+  },
   "69": {
     "response": "Nice."
   },
@@ -110,6 +132,9 @@
   },
   "hi": {
     "response": "... the void isn't much for smalltalk."
+  },
+  "fuck you": {
+    "response": "Rude."
   },
   "rickroll": {
     "response": "you fool. you've summoned him here.",
