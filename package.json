@@ -1,0 +1,10 @@
+{
+  "name": "eleenlinkrepo",
+  "version": "1.0.0",
+  "description": "Eleen's personal Neocities site & link repository",
+  "scripts": {
+    "build:blog": "node scripts/build-blog.js",
+    "build:codes": "node scripts/compile-void-codes.js",
+    "build": "node scripts/build-blog.js && node scripts/compile-void-codes.js"
+  }
+}
