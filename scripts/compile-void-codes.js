@@ -46,6 +46,10 @@ try {
       const encryptedRedirect = encryptResponse(entry.redirect, cleanCode);
       line += `,\n          redirect: "${encryptedRedirect}"`;
     }
+    if (entry.playsound) {
+      const encryptedPlaysound = encryptResponse(entry.playsound, cleanCode);
+      line += `,\n          playsound: "${encryptedPlaysound}"`;
+    }
     line += `\n        }`;
     encryptedEntries.push(line);
   }

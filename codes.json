@@ -31,6 +31,18 @@
     "response": "Really now? Trying to cheat are we? Am dissapointed.",
     "statusClass": "success-text"
   },
+  "you suck":{
+    "response": "No you!",
+    "redirect": "https://www.reddit.com/"
+  },
+  "i need a medic bag":{
+    "response": "AAAUGH! I NEED A MEDIC BAG!", 
+    "playsound": "d_medicbag.ogg"
+  },
+  "nullscape":{
+    "response": "I like roguelikes, sue me.",
+    "redirect": "https://www.roblox.com/games/129279692364812/Nullscape"
+  },
   "john":
   {
     "response": "the father to mercredi. a kind man.",
