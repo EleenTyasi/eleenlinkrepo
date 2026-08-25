@@ -51,40 +51,99 @@ function parseFrontmatter(content) {
 // Simple Markdown to HTML Converter
 function markdownToHtml(md) {
   const lines = md.split(/\r?\n/);
-  const paragraphs = [];
-  let currentBlock = [];
+  const result = [];
+  let currentParagraph = [];
+  let inCodeBlock = false;
+  let codeBlockLines = [];
 
-  function flushBlock() {
-    if (currentBlock.length === 0) return;
-    const text = currentBlock.join('\n').trim();
-    if (!text) return;
-
-    if (text.startsWith('# ')) {
-      paragraphs.push(`<h1>${parseInline(text.slice(2))}</h1>`);
-    } else if (text.startsWith('## ')) {
-      paragraphs.push(`<h2>${parseInline(text.slice(3))}</h2>`);
-    } else if (text.startsWith('### ')) {
-      paragraphs.push(`<h3>${parseInline(text.slice(4))}</h3>`);
-    } else if (text === '---' || text === '***') {
-      paragraphs.push('<hr>');
-    } else {
-      // Regular paragraph - format linebreaks as <p> tags
-      const formattedLines = text.split('\n').map(line => parseInline(line));
-      paragraphs.push(`      <p>${formattedLines.join('</p>\n      <p>')}</p>`);
+  function flushParagraph() {
+    if (currentParagraph.length > 0) {
+      const formattedParagraph = currentParagraph.map(line => `      <p>${parseInline(line)}</p>`).join('\n');
+      result.push(formattedParagraph);
+      currentParagraph = [];
     }
-    currentBlock = [];
   }
 
-  lines.forEach(line => {
-    if (line.trim() === '') {
-      flushBlock();
-    } else {
-      currentBlock.push(line);
-    }
-  });
-  flushBlock();
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
 
-  return paragraphs.join('\n\n');
+    // Code block toggle ```
+    if (trimmed.startsWith('```')) {
+      if (inCodeBlock) {
+        result.push(`      <pre><code>${codeBlockLines.join('\n')}</code></pre>`);
+        codeBlockLines = [];
+        inCodeBlock = false;
+      } else {
+        flushParagraph();
+        inCodeBlock = true;
+      }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      codeBlockLines.push(escapeHtml(line));
+      continue;
+    }
+
+    // Empty line -> end paragraph
+    if (trimmed === '') {
+      flushParagraph();
+      continue;
+    }
+
+    // Check for Headings (# through ######)
+    const headingMatch = trimmed.match(/^(#{1,6})\s+(.*)$/);
+    if (headingMatch) {
+      flushParagraph();
+      const level = headingMatch[1].length;
+      const headingText = parseInline(headingMatch[2].trim());
+      result.push(`      <h${level}>${headingText}</h${level}>`);
+      continue;
+    }
+
+    // Check for Horizontal Rule (---, ***, ___)
+    if (/^(\*{3,}|-{3,}|_{3,})$/.test(trimmed)) {
+      flushParagraph();
+      result.push('      <hr>');
+      continue;
+    }
+
+    // Check for Blockquote (> text)
+    if (trimmed.startsWith('>')) {
+      flushParagraph();
+      const quoteText = parseInline(trimmed.replace(/^>\s*/, ''));
+      result.push(`      <blockquote><p>${quoteText}</p></blockquote>`);
+      continue;
+    }
+
+    // Check for Unordered List (- item or * item)
+    if (/^[-*]\s+/.test(trimmed)) {
+      flushParagraph();
+      const listItems = [];
+      while (i < lines.length && /^[-*]\s+/.test(lines[i].trim())) {
+        const itemText = parseInline(lines[i].trim().replace(/^[-*]\s+/, ''));
+        listItems.push(`<li>${itemText}</li>`);
+        i++;
+      }
+      i--;
+      result.push(`      <ul>\n        ${listItems.join('\n        ')}\n      </ul>`);
+      continue;
+    }
+
+    // Otherwise, normal line in paragraph
+    currentParagraph.push(line);
+  }
+
+  flushParagraph();
+  return result.join('\n\n');
+}
+
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 // Format inline Markdown (bold, italic, links)
@@ -92,7 +151,9 @@ function parseInline(text) {
   return text
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_]+)_/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
 }
 
 try {
