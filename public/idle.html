@@ -66,7 +66,8 @@
 
     <div class="game-container">
       <h2 id="score-display">0 Pats</h2>
-      <p id="pps-display">0 pats per second</p>
+      <p id="pps-display" style="margin: 3px 0;">0 pats per second</p>
+      <p id="ppc-display" style="margin: 3px 0; color: #aaa; font-size: 0.9rem;">1 pat per click</p>
 
       <button id="pat-btn" class="click-btn">🐾 PAT THE CAT 🐾</button>
 
@@ -359,8 +360,12 @@
       const resetBtn = document.getElementById('reset-btn');
 
       function updateUI() {
+        const ppcDisplay = document.getElementById('ppc-display');
         scoreDisplay.textContent = `${formatNumber(game.pats)} ${config.currencyName || 'Pats'}`;
         ppsDisplay.textContent = `${formatNumber(getPps())} ${config.rateSuffix || 'pats per second'}`;
+        if (ppcDisplay) {
+          ppcDisplay.textContent = `${formatNumber(game.patPower)} ${config.clickSuffix || 'pats per click'}`;
+        }
 
         const remeows = game.remeows || 0;
         const mult = getRemeowMultiplier();
@@ -411,8 +416,9 @@
           }
 
           if (u.type === 'crits' && infoSpan) {
-            const chancePct = Math.round(Math.min(0.75, count * 0.05) * 100);
-            infoSpan.textContent = ` | Crit Chance: ${chancePct}%`;
+            const maxChance = u.max ? u.max * 0.05 : 0.75;
+            const chancePct = Math.round(Math.min(maxChance, count * 0.05) * 100);
+            infoSpan.textContent = ` | Crit Chance: ${chancePct}%${u.max && count >= u.max ? ' (MAX)' : ''}`;
           }
         });
       }
@@ -452,7 +458,8 @@
         if (critsUpgrade) {
           const critsCount = game.upgrades[critsUpgrade.id] || 0;
           if (critsCount > 0) {
-            const critChance = Math.min(0.75, critsCount * 0.05);
+            const maxChance = critsUpgrade.max ? critsUpgrade.max * 0.05 : 0.75;
+            const critChance = Math.min(maxChance, critsCount * 0.05);
             if (Math.random() < critChance) {
               earned *= 3;
               isCrit = true;
@@ -520,14 +527,14 @@
           updateUI();
           initUniquePlayerCounter();
 
-          // Game loop (10 ticks per sec)
+          // Game loop (runs every 1 second to cleanly add PPS)
           setInterval(() => {
             const pps = getPps();
             if (pps > 0) {
-              game.pats += pps / 10;
+              game.pats += pps;
               updateUI();
             }
-          }, 100);
+          }, 1000);
 
           // Auto-save every 3 seconds with subtle visual feedback
           setInterval(() => saveGame(false, true), 3000);

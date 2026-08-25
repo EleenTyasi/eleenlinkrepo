@@ -6,6 +6,7 @@
   "currencyNameSingular": "Pet",
   "clickButtonText": "🐾 PET THE CAT 🐾",
   "rateSuffix": "pps",
+  "clickSuffix": "pats per click",
   "upgradesHeader": "Upgrades",
   "ownedText": "Owned",
   "buyText": "Buy",
@@ -63,7 +64,8 @@
       "baseCost": 200,
       "costMultiplier": 1.15,
       "type": "crits",
-      "value": 5
+      "value": 5,
+      "max": 15
     },
     {
       "id": "brushybrush",
