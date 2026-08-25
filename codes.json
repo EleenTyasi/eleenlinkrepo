@@ -179,5 +179,10 @@
   "doom": {
     "response": "CLOWNBOY! THATS WHAT YOU ARE!",
     "redirect": "https://www.youtube.com/watch?v=OmcvTEynArQ"
+  },
+  "opensource": {
+    "response": "eleen's website is... fully open source. including how i work... this may spoil other codes.",
+    "redirect": "https://github.com/EleenTyasi/eleenlinkrepo",
+    "statusClass": "success-text"
   }
 }
