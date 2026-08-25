@@ -39,9 +39,17 @@
     "response": "AAAUGH! I NEED A MEDIC BAG!", 
     "playsound": "d_medicbag.ogg"
   },
+  "uuddlrlrba":{
+    "response": "I see you know ball.",
+    "statusClass": "success-text"
+  },
   "nullscape":{
     "response": "I like roguelikes, sue me.",
     "redirect": "https://www.roblox.com/games/129279692364812/Nullscape"
+  },
+  "rm -rf": {
+    "response": " ",
+    "redirect": "https://eleenthetyasi.neocities.org/not_found"
   },
   "john":
   {
