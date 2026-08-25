@@ -81,6 +81,12 @@
         <button id="remeow-btn" class="upgrade-btn" style="background-color: #b39700; color: black; font-weight: bold; margin-top: 8px;">Remeow</button>
       </div>
 
+      <div id="player-counter-card" class="upgrade-card" style="margin: 20px auto 10px; border-color: rgb(146, 4, 202); background: #080010; max-width: 320px;">
+        <p id="player-counter-title" style="margin: 2px 0; font-size: 0.85rem; color: rgb(212, 162, 224);">🐾 UNIQUE PLAYERS 🐾</p>
+        <h3 id="unique-player-count" style="margin: 4px 0; color: #ffd700; font-size: 1.4rem;">--</h3>
+        <p id="player-joined-status" style="margin: 2px 0; font-size: 0.75rem; color: #888;">loading player stats...</p>
+      </div>
+
       <hr>
       <button id="save-btn" class="reset-btn" style="color: rgb(212, 162, 224); border-color: rgb(146, 4, 202); margin-right: 10px;">save game</button>
       <button id="reset-btn" class="reset-btn">reset save data</button>
@@ -240,6 +246,46 @@
           if (config.remeow.title) document.getElementById('remeow-title').textContent = config.remeow.title;
           if (config.remeow.description) document.getElementById('remeow-desc').textContent = config.remeow.description;
         }
+        if (config.playerCounter) {
+          if (config.playerCounter.title) document.getElementById('player-counter-title').textContent = config.playerCounter.title;
+        }
+      }
+
+      function initUniquePlayerCounter() {
+        const countDisplay = document.getElementById('unique-player-count');
+        const statusDisplay = document.getElementById('player-joined-status');
+        const isNewPlayer = !localStorage.getItem('eleen_idle_unique_player');
+
+        if (isNewPlayer) {
+          localStorage.setItem('eleen_idle_unique_player', Date.now().toString());
+        }
+
+        const endpoint = isNewPlayer
+          ? 'https://api.counterapi.dev/v2/test/test/up'
+          : 'https://api.counterapi.dev/v2/test/test';
+
+        fetch(endpoint)
+          .then(res => res.json())
+          .then(resData => {
+            let totalCount = 0;
+            if (resData && resData.data) {
+              totalCount = resData.data.up_count || resData.data.count || 1;
+            }
+            if (countDisplay) countDisplay.textContent = formatNumber(totalCount);
+            if (statusDisplay) {
+              const newTag = (config.playerCounter && config.playerCounter.newPlayerTag) || "Welcome! You're a new unique player! 🐾";
+              const returnTag = (config.playerCounter && config.playerCounter.returningPlayerTag) || "Welcome back, player! 🐾";
+              statusDisplay.textContent = isNewPlayer ? newTag : returnTag;
+            }
+          })
+          .catch(err => {
+            if (countDisplay) countDisplay.textContent = "1+";
+            if (statusDisplay) {
+              statusDisplay.textContent = isNewPlayer
+                ? "Welcome! You're a new player!"
+                : "Welcome back!";
+            }
+          });
       }
 
       function loadGame() {
@@ -472,6 +518,7 @@
           loadGame();
           renderUpgrades();
           updateUI();
+          initUniquePlayerCounter();
 
           // Game loop (10 ticks per sec)
           setInterval(() => {

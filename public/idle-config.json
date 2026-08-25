@@ -23,6 +23,11 @@
     "description": "Reset your pats and upgrades to gain a permanent +25% global multiplier on ALL online & offline pats!",
     "confirmText": "Are you sure you want to Remeow? This will reset your current pats and upgrades, but grants a permanent +25% multiplier to ALL future pats!"
   },
+  "playerCounter": {
+    "title": "🐾 UNIQUE PLAYERS 🐾",
+    "newPlayerTag": "Welcome! You're a new unique player! 🐾",
+    "returningPlayerTag": "Welcome back, player! 🐾"
+  },
   "upgrades": [
     {
       "id": "patter",
