@@ -40,6 +40,24 @@
       "value": 1
     },
     {
+      "id": "bothhands",
+      "name": "twohanded patter",
+      "description": "+3 pats per click.",
+      "baseCost": 20,
+      "costMultiplier": 1.15,
+      "type":"click",
+      "value": 3
+    },
+    {
+      "id": "megapatter",
+      "name": "megapatter",
+      "description": "+8 pats per click.",
+      "baseCost": 80,
+      "costMultiplier": 1.25,
+      "type": "click",
+      "value": 8 
+    },
+    {
       "id": "autoPatter",
       "name": "auto-patter",
       "description": "+1 Pat per second",
@@ -56,6 +74,15 @@
       "costMultiplier": 1.15,
       "type": "pps",
       "value": 5
+    },
+    {
+      "id": "birdnest",
+      "name": "bird nest",
+      "description": "+10 pats per second; expensive",
+      "baseCost": 500,
+      "costMultiplier": 1.65,
+      "type": "pps",
+      "value": 10
     },
     {
       "id": "criticalpats",
