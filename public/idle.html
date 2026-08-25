@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">plushie cat clicker | eleen</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+      h1, h2, p { text-align: center; }
+      .game-container {
+        max-width: 500px;
+        margin: 20px auto;
+        text-align: center;
+      }
+      .click-btn {
+        background-color: #1a0026;
+        color: rgb(212, 162, 224);
+        border: 2px solid rgb(146, 4, 202);
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        font-family: Verdana;
+        cursor: pointer;
+        border-radius: 8px;
+        margin: 15px 0;
+      }
+      .click-btn:active {
+        transform: scale(0.96);
+      }
+      .upgrade-card {
+        border: 1px solid rgb(146, 4, 202);
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 6px;
+        background: #0d0014;
+      }
+      .upgrade-btn {
+        background-color: rgb(146, 4, 202);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-family: Verdana;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+      .upgrade-btn:disabled {
+        background-color: #333;
+        color: #777;
+        cursor: not-allowed;
+      }
+      .reset-btn {
+        background: transparent;
+        color: #666;
+        border: 1px solid #444;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="heading">plushie cat patter</h1>
+    <p id="subheading">give the cat some pats!</p>
+    <hr>
+
+    <div class="game-container">
+      <h2 id="score-display">0 Pats</h2>
+      <p id="pps-display">0 pats per second</p>
+
+      <button id="pat-btn" class="click-btn">🐾 PAT THE CAT 🐾</button>
+
+      <hr>
+      <h2 id="upgrades-header">upgrades</h2>
+      <div id="upgrades-list"></div>
+
+      <div id="remeow-section" class="upgrade-card" style="display: none; border-color: #ffd700; background: #1a1500; margin-top: 20px;">
+        <h3 style="margin: 5px 0; color: #ffd700;" id="remeow-title">Remeow (Prestige)</h3>
+        <p style="margin: 5px 0; font-size: 0.85rem;" id="remeow-desc">Reset for a permanent multiplier!</p>
+        <p style="margin: 5px 0; font-size: 0.9rem;">Remeows: <strong id="remeow-count">0</strong> | Multiplier: <strong id="remeow-mult">1.00x</strong></p>
+        <button id="remeow-btn" class="upgrade-btn" style="background-color: #b39700; color: black; font-weight: bold; margin-top: 8px;">Remeow</button>
+      </div>
+
+      <hr>
+      <button id="save-btn" class="reset-btn" style="color: rgb(212, 162, 224); border-color: rgb(146, 4, 202); margin-right: 10px;">save game</button>
+      <button id="reset-btn" class="reset-btn">reset save data</button>
+      <p id="save-status" style="font-size: 0.8rem; color: #888; margin-top: 5px; height: 1em;"></p>
+    </div>
+
+    <hr>
+    <p><a href="/">home</a> | <a href="/links">links</a> | <a href="/projects">projects</a> | <a href="/blog">blog</a></p>
+
+    <script>
+      // Default localization config in case fetch fails
+      let config = {
+        pageTitle: "plushie cat clicker | eleen",
+        heading: "plushie cat patter",
+        subheading: "give the cat some pats!",
+        currencyName: "Pats",
+        currencyNameSingular: "Pat",
+        clickButtonText: "🐾 PAT THE CAT 🐾",
+        rateSuffix: "pats per second",
+        upgradesHeader: "upgrades",
+        ownedText: "Owned",
+        buyText: "Buy",
+        saveButtonText: "save game",
+        resetButtonText: "reset save data",
+        savedNoticeText: "Progress saved locally on your device!",
+        resetConfirmText: "Are you sure you want to reset your progress?",
+        welcomeBackMessage: "Welcome back! While you were away for {seconds} seconds, you earned {pats} {currency}!",
+        upgrades: [
+          {
+            id: "treatBag",
+            name: "Tasty Treat",
+            description: "+1 Pat per click",
+            baseCost: 15,
+            costMultiplier: 1.15,
+            type: "click",
+            value: 1
+          },
+          {
+            id: "autoPatter",
+            name: "Auto-Patter",
+            description: "+1 Pat per second",
+            baseCost: 50,
+            costMultiplier: 1.15,
+            type: "pps",
+            value: 1
+          },
+          {
+            id: "catnip",
+            name: "Fresh Catnip",
+            description: "+5 Pats per second",
+            baseCost: 200,
+            costMultiplier: 1.15,
+            type: "pps",
+            value: 5
+          }
+        ]
+      };
+
+      let game = {
+        pats: 0,
+        patPower: 1,
+        lastTimestamp: Date.now(),
+        upgrades: {}
+      };
+
+      function formatNumber(num) {
+        if (num === null || num === undefined || isNaN(num)) return '0';
+        if (num < 1000) {
+          return Math.floor(num).toLocaleString();
+        }
+        const suffixes = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
+        const i = Math.floor(Math.log10(num) / 3);
+        if (i < suffixes.length) {
+          const formatted = (num / Math.pow(10, i * 3)).toFixed(2);
+          return formatted.replace(/\.00$/, '') + suffixes[i];
+        }
+        return num.toExponential(2);
+      }
+
+      function getRemeowMultiplier() {
+        const count = game.remeows || 0;
+        const mult = (config.remeow && config.remeow.multiplierPerRemeow) || 0.25;
+        return 1 + (count * mult);
+      }
+
+      function getNextRemeowCost(currentRemeows) {
+        const baseMin = (config.remeow && config.remeow.minPats) || 5000;
+        const mult = (config.remeow && config.remeow.costMultiplier) || 2.0;
+        return Math.floor(baseMin * Math.pow(mult, currentRemeows));
+      }
+
+      function getEarnableRemeows(currentRemeows, currentPats) {
+        let earned = 0;
+        let tempPats = currentPats;
+        let tempLevel = currentRemeows;
+        while (true) {
+          const cost = getNextRemeowCost(tempLevel);
+          if (tempPats >= cost) {
+            tempPats -= cost;
+            tempLevel++;
+            earned++;
+          } else {
+            break;
+          }
+        }
+        return earned;
+      }
+
+      function calculatePatPower() {
+        let basePower = 1;
+        (config.upgrades || []).forEach(u => {
+          if (u.type === 'click') {
+            basePower += (game.upgrades[u.id] || 0) * (u.value || 1);
+          } else if (u.type === 'offlineboost') {
+            basePower += (game.upgrades[u.id] || 0) * 2;
+          }
+        });
+        return Math.floor(basePower * getRemeowMultiplier());
+      }
+
+      function getPps() {
+        let basePps = 0;
+        (config.upgrades || []).forEach(u => {
+          if (u.type === 'pps') {
+            basePps += (game.upgrades[u.id] || 0) * (u.value || 1);
+          }
+        });
+        return Math.floor(basePps * getRemeowMultiplier());
+      }
+
+      function getOfflinePps() {
+        let basePps = 0;
+        (config.upgrades || []).forEach(u => {
+          if (u.type === 'pps') {
+            basePps += (game.upgrades[u.id] || 0) * (u.value || 1);
+          } else if (u.type === 'offlineboost') {
+            basePps += (game.upgrades[u.id] || 0) * (u.value || 5);
+          }
+        });
+        return Math.floor(basePps * getRemeowMultiplier());
+      }
+
+      function getCost(upgrade) {
+        const count = game.upgrades[upgrade.id] || 0;
+        return Math.floor(upgrade.baseCost * Math.pow(upgrade.costMultiplier || 1.15, count));
+      }
+
+      function applyLocalization() {
+        if (config.pageTitle) document.title = config.pageTitle;
+        if (config.heading) document.getElementById('heading').textContent = config.heading;
+        if (config.subheading) document.getElementById('subheading').textContent = config.subheading;
+        if (config.clickButtonText) document.getElementById('pat-btn').textContent = config.clickButtonText;
+        if (config.upgradesHeader) document.getElementById('upgrades-header').textContent = config.upgradesHeader;
+        if (config.saveButtonText) document.getElementById('save-btn').textContent = config.saveButtonText;
+        if (config.resetButtonText) document.getElementById('reset-btn').textContent = config.resetButtonText;
+        if (config.remeow) {
+          if (config.remeow.title) document.getElementById('remeow-title').textContent = config.remeow.title;
+          if (config.remeow.description) document.getElementById('remeow-desc').textContent = config.remeow.description;
+        }
+      }
+
+      function loadGame() {
+        const saved = localStorage.getItem('eleen_idle_save');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            game = { ...game, ...parsed, upgrades: { ...game.upgrades, ...(parsed.upgrades || {}) } };
+            game.patPower = calculatePatPower();
+
+            if (parsed.lastTimestamp) {
+              const secondsAway = Math.floor((Date.now() - parsed.lastTimestamp) / 1000);
+              const offlineRate = getOfflinePps();
+              if (secondsAway > 2 && offlineRate > 0) {
+                let offlineMultiplier = 1;
+                const offlineCritsUpgrade = (config.upgrades || []).find(u => u.type === 'offlinecrits');
+                if (offlineCritsUpgrade) {
+                  const critsCount = game.upgrades[offlineCritsUpgrade.id] || 0;
+                  if (critsCount > 0) {
+                    const chance = Math.min(0.80, critsCount * 0.10);
+                    offlineMultiplier = 1 + (chance * 2);
+                  }
+                }
+
+                const offlinePats = secondsAway * offlineRate * offlineMultiplier;
+                game.pats += offlinePats;
+                setTimeout(() => {
+                  const msg = (config.welcomeBackMessage || "Welcome back! Earned {pats} {currency}!")
+                    .replace('{seconds}', secondsAway)
+                    .replace('{pats}', formatNumber(offlinePats))
+                    .replace('{currency}', config.currencyName || 'Pats');
+                  alert(msg);
+                }, 300);
+              }
+            }
+          } catch(e) {}
+        }
+      }
+
+      function saveGame(showNotice = false) {
+        game.lastTimestamp = Date.now();
+        localStorage.setItem('eleen_idle_save', JSON.stringify(game));
+        if (showNotice) {
+          const status = document.getElementById('save-status');
+          if (status) {
+            status.textContent = config.savedNoticeText || 'Progress saved locally on your device!';
+            setTimeout(() => { status.textContent = ''; }, 3000);
+          }
+        }
+      }
+
+      const scoreDisplay = document.getElementById('score-display');
+      const ppsDisplay = document.getElementById('pps-display');
+      const patBtn = document.getElementById('pat-btn');
+      const upgradesList = document.getElementById('upgrades-list');
+      const remeowBtn = document.getElementById('remeow-btn');
+      const saveBtn = document.getElementById('save-btn');
+      const resetBtn = document.getElementById('reset-btn');
+
+      function updateUI() {
+        scoreDisplay.textContent = `${formatNumber(game.pats)} ${config.currencyName || 'Pats'}`;
+        ppsDisplay.textContent = `${formatNumber(getPps())} ${config.rateSuffix || 'pats per second'}`;
+
+        const remeows = game.remeows || 0;
+        const mult = getRemeowMultiplier();
+        document.getElementById('remeow-count').textContent = formatNumber(remeows);
+        document.getElementById('remeow-mult').textContent = mult.toFixed(2) + 'x';
+
+        const nextCost = getNextRemeowCost(remeows);
+        const remeowsEarned = getEarnableRemeows(remeows, game.pats);
+        const reqMet = remeowsEarned >= 1;
+        const remeowSection = document.getElementById('remeow-section');
+
+        // Only show Remeow section if player can Remeow OR has already Remeowed at least once
+        if (reqMet || remeows > 0) {
+          remeowSection.style.display = 'block';
+        } else {
+          remeowSection.style.display = 'none';
+        }
+
+        const multPerRemeow = (config.remeow && config.remeow.multiplierPerRemeow) || 0.25;
+        const multGainPct = Math.round(remeowsEarned * multPerRemeow * 100);
+
+        remeowBtn.disabled = !reqMet;
+        if (reqMet) {
+          remeowBtn.textContent = `✨ REMEOW (+${formatNumber(remeowsEarned)} ${remeowsEarned === 1 ? 'Remeow' : 'Remeows'} / +${multGainPct}%) ✨`;
+        } else {
+          remeowBtn.textContent = `Remeow (Req. ${formatNumber(nextCost)} Pats)`;
+        }
+
+        (config.upgrades || []).forEach(u => {
+          const cost = getCost(u);
+          const count = game.upgrades[u.id] || 0;
+          const btn = document.getElementById('btn-' + u.id);
+          const countSpan = document.getElementById('count-' + u.id);
+          const costSpan = document.getElementById('cost-' + u.id);
+
+          if (btn && costSpan && countSpan) {
+            costSpan.textContent = formatNumber(cost);
+            countSpan.textContent = formatNumber(count);
+            btn.disabled = game.pats < cost;
+          }
+        });
+      }
+
+      function renderUpgrades() {
+        upgradesList.innerHTML = '';
+        (config.upgrades || []).forEach(u => {
+          const div = document.createElement('div');
+          div.className = 'upgrade-card';
+          div.innerHTML = `
+            <strong>${u.name}</strong> (${u.description})<br>
+            ${config.ownedText || 'Owned'}: <span id="count-${u.id}">0</span><br>
+            <button id="btn-${u.id}" class="upgrade-btn">${config.buyText || 'Buy'} (<span id="cost-${u.id}">${formatNumber(u.baseCost)}</span> ${config.currencyName || 'Pats'})</button>
+          `;
+          upgradesList.appendChild(div);
+
+          document.getElementById('btn-' + u.id).addEventListener('click', () => {
+            const cost = getCost(u);
+            if (game.pats >= cost) {
+              game.pats -= cost;
+              game.upgrades[u.id] = (game.upgrades[u.id] || 0) + 1;
+              game.patPower = calculatePatPower();
+              saveGame();
+              updateUI();
+            }
+          });
+        });
+      }
+
+      patBtn.addEventListener('click', () => {
+        let earned = game.patPower;
+        let isCrit = false;
+
+        const critsUpgrade = (config.upgrades || []).find(u => u.type === 'crits');
+        if (critsUpgrade) {
+          const critsCount = game.upgrades[critsUpgrade.id] || 0;
+          if (critsCount > 0) {
+            const critChance = Math.min(0.75, critsCount * 0.05);
+            if (Math.random() < critChance) {
+              earned *= 3;
+              isCrit = true;
+            }
+          }
+        }
+
+        game.pats += earned;
+        updateUI();
+
+        if (isCrit) {
+          const status = document.getElementById('save-status');
+          if (status) {
+            status.style.color = '#ffd700';
+            status.textContent = '✨ CRITICAL PET! 3x PATS! ✨';
+            setTimeout(() => { 
+              status.style.color = '#888';
+              status.textContent = ''; 
+            }, 1200);
+          }
+        }
+      });
+
+      remeowBtn.addEventListener('click', () => {
+        const currentRemeows = game.remeows || 0;
+        const remeowsEarned = getEarnableRemeows(currentRemeows, game.pats);
+        if (remeowsEarned >= 1) {
+          const multPerRemeow = (config.remeow && config.remeow.multiplierPerRemeow) || 0.25;
+          const multGainPct = Math.round(remeowsEarned * multPerRemeow * 100);
+          const confirmText = `Are you sure you want to Remeow? This will reset your pats and upgrades, but grants +${formatNumber(remeowsEarned)} Remeow${remeowsEarned > 1 ? 's' : ''} (+${multGainPct}% to ALL future pats)!`;
+          if (confirm(confirmText)) {
+            game.remeows = currentRemeows + remeowsEarned;
+            game.pats = 0;
+            game.upgrades = {};
+            game.patPower = calculatePatPower();
+            saveGame(true);
+            renderUpgrades();
+            updateUI();
+          }
+        }
+      });
+
+      saveBtn.addEventListener('click', () => {
+        saveGame(true);
+      });
+
+      resetBtn.addEventListener('click', () => {
+        if (confirm(config.resetConfirmText || 'Are you sure you want to reset your progress?')) {
+          localStorage.removeItem('eleen_idle_save');
+          location.reload();
+        }
+      });
+
+      // Load external localization config
+      fetch('/idle-config.json')
+        .then(res => res.json())
+        .then(data => {
+          config = { ...config, ...data };
+        })
+        .catch(err => console.log('Using default localization config'))
+        .finally(() => {
+          applyLocalization();
+          loadGame();
+          renderUpgrades();
+          updateUI();
+
+          // Game loop (10 ticks per sec)
+          setInterval(() => {
+            const pps = getPps();
+            if (pps > 0) {
+              game.pats += pps / 10;
+              updateUI();
+            }
+          }, 100);
+
+          // Auto-save every 5 seconds
+          setInterval(saveGame, 5000);
+        });
+    </script>
+  </body>
+</html>

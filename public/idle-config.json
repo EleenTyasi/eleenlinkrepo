@@ -1,0 +1,82 @@
+{
+  "pageTitle": "cat petting sim 2k26 | eleen",
+  "heading": "cat petting sim 2k26 ultra hd final mix",
+  "subheading": "click it. become catpetter elite",
+  "currencyName": "Pats",
+  "currencyNameSingular": "Pet",
+  "clickButtonText": "🐾 PET THE CAT 🐾",
+  "rateSuffix": "pps",
+  "upgradesHeader": "Upgrades",
+  "ownedText": "Owned",
+  "buyText": "Buy",
+  "saveButtonText": "save game",
+  "resetButtonText": "reset save data",
+  "savedNoticeText": "Progress saved locally on your device!",
+  "resetConfirmText": "Are you sure you want to reset your progress?",
+  "welcomeBackMessage": "Welcome back! While you were away for {seconds} seconds, you earned {pats} {currency}!",
+  "remeow": {
+    "title": "Remeow (Prestige)",
+    "buttonText": "✨ REMEOW ✨",
+    "minPats": 5000,
+    "costMultiplier": 2.5,
+    "multiplierPerRemeow": 0.25,
+    "description": "Reset your pats and upgrades to gain a permanent +25% global multiplier on ALL online & offline pats!",
+    "confirmText": "Are you sure you want to Remeow? This will reset your current pats and upgrades, but grants a permanent +25% multiplier to ALL future pats!"
+  },
+  "upgrades": [
+    {
+      "id": "patter",
+      "name": "weak patter",
+      "description": "+1 Pat per click",
+      "baseCost": 15,
+      "costMultiplier": 1.15,
+      "type": "click",
+      "value": 1
+    },
+    {
+      "id": "autoPatter",
+      "name": "auto-patter",
+      "description": "+1 Pat per second",
+      "baseCost": 50,
+      "costMultiplier": 1.15,
+      "type": "pps",
+      "value": 1
+    },
+    {
+      "id": "catnip",
+      "name": "catnip",
+      "description": "+5 Pats per second",
+      "baseCost": 200,
+      "costMultiplier": 1.15,
+      "type": "pps",
+      "value": 5
+    },
+    {
+      "id": "criticalpats",
+      "name": "critical pets",
+      "description": "while petting the cat, rarely attain triple the pets",
+      "baseCost": 200,
+      "costMultiplier": 1.15,
+      "type": "crits",
+      "value": 5
+    },
+    {
+      "id": "brushybrush",
+      "name": "brushy brush",
+      "description": "+5 pats earned while offline, +2 when clicking",
+      "baseCost": 200,
+      "costMultiplier": 1.15,
+      "type": "offlineboost",
+      "value": 5
+    },
+    {
+      "id": "offlinecrits",
+      "name": "cat bed",
+      "description": "while offline, sometimes get critical pats.",
+      "baseCost": 500,
+      "costMultiplier": 1.25,
+      "type": "offlinecrits",
+      "value": 1
+    }
+  ]
+}

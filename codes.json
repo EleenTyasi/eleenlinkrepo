@@ -184,5 +184,10 @@
     "response": "eleen's website is... fully open source. including how i work... this may spoil other codes.",
     "redirect": "https://github.com/EleenTyasi/eleenlinkrepo",
     "statusClass": "success-text"
+  },
+  "idle": {
+    "response": "i got an idle game for you then.",
+    "redirect": "/idle",
+    "statusClass": "success-text"
   }
 }
