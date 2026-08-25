@@ -67,7 +67,8 @@
       "baseCost": 200,
       "costMultiplier": 1.15,
       "type": "offlineboost",
-      "value": 5
+      "value": 5,
+      "max": 1
     },
     {
       "id": "offlinecrits",
@@ -76,7 +77,8 @@
       "baseCost": 500,
       "costMultiplier": 1.25,
       "type": "offlinecrits",
-      "value": 1
+      "value": 1,
+      "max": 1
     }
   ]
 }

@@ -341,11 +341,24 @@
           const btn = document.getElementById('btn-' + u.id);
           const countSpan = document.getElementById('count-' + u.id);
           const costSpan = document.getElementById('cost-' + u.id);
+          const infoSpan = document.getElementById('info-' + u.id);
 
           if (btn && costSpan && countSpan) {
             costSpan.textContent = formatNumber(cost);
             countSpan.textContent = formatNumber(count);
-            btn.disabled = game.pats < cost;
+
+            if (u.max && count >= u.max) {
+              btn.disabled = true;
+              btn.textContent = `MAXED (${count}/${u.max})`;
+            } else {
+              btn.disabled = game.pats < cost;
+              btn.innerHTML = `${config.buyText || 'Buy'} (<span id="cost-${u.id}">${formatNumber(cost)}</span> ${config.currencyName || 'Pats'})`;
+            }
+          }
+
+          if (u.type === 'crits' && infoSpan) {
+            const chancePct = Math.round(Math.min(0.75, count * 0.05) * 100);
+            infoSpan.textContent = ` | Crit Chance: ${chancePct}%`;
           }
         });
       }
@@ -357,16 +370,18 @@
           div.className = 'upgrade-card';
           div.innerHTML = `
             <strong>${u.name}</strong> (${u.description})<br>
-            ${config.ownedText || 'Owned'}: <span id="count-${u.id}">0</span><br>
+            ${config.ownedText || 'Owned'}: <span id="count-${u.id}">0</span><span id="info-${u.id}" style="color: #ffd700;"></span><br>
             <button id="btn-${u.id}" class="upgrade-btn">${config.buyText || 'Buy'} (<span id="cost-${u.id}">${formatNumber(u.baseCost)}</span> ${config.currencyName || 'Pats'})</button>
           `;
           upgradesList.appendChild(div);
 
           document.getElementById('btn-' + u.id).addEventListener('click', () => {
+            const count = game.upgrades[u.id] || 0;
+            if (u.max && count >= u.max) return;
             const cost = getCost(u);
             if (game.pats >= cost) {
               game.pats -= cost;
-              game.upgrades[u.id] = (game.upgrades[u.id] || 0) + 1;
+              game.upgrades[u.id] = count + 1;
               game.patPower = calculatePatPower();
               saveGame();
               updateUI();
