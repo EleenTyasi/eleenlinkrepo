@@ -5,6 +5,7 @@
   "scripts": {
     "build:blog": "node scripts/build-blog.js",
     "build:codes": "node scripts/compile-void-codes.js",
-    "build": "node scripts/build-blog.js && node scripts/compile-void-codes.js"
+    "build:idle": "node scripts/sync-idle-config.js",
+    "build": "node scripts/build-blog.js && node scripts/compile-void-codes.js && node scripts/sync-idle-config.js"
   }
 }

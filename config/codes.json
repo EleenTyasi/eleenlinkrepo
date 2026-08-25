@@ -1,0 +1,193 @@
+{
+  "eleen": {
+    "response": "... that cat who tamed us....",
+    "statusClass": "success-text"
+  },
+  "plushcat": {
+    "response": "yes... she is indeed a plushie.",
+    "statusClass": "success-text"
+  },
+  "403": {
+    "response": "i hate that guy. tell 403 to politely fuck off.",
+    "statusClass": "success-text"
+  },
+  "8426": {
+    "response": "... the day i was imprisoned here.",
+    "statusClass": "success-text"
+  },
+  "downpurr": {
+    "response": "i like cats... i guess.",
+    "statusClass": "success-text"
+  },
+  "nicothecinderace": {
+    "response": "She's one of the few closer friends of eleen... has good taste in games.",
+    "statusClass": "friend-name"
+  },
+  "mercredi": {
+    "response": "the hybrid. one of nico's many favored... strong.",
+    "statusClass": "success-text"
+  },
+  "sv_cheats 1": {
+    "response": "Really now? Trying to cheat are we? Am dissapointed.",
+    "statusClass": "success-text"
+  },
+  "you suck":{
+    "response": "No you!",
+    "redirect": "https://www.reddit.com/"
+  },
+  "i need a medic bag":{
+    "response": "AAAUGH! I NEED A MEDIC BAG!", 
+    "playsound": "d_medicbag.ogg"
+  },
+  "uuddlrlrba":{
+    "response": "I see you know ball.",
+    "statusClass": "success-text"
+  },
+  "nullscape":{
+    "response": "I like roguelikes, sue me.",
+    "redirect": "https://www.roblox.com/games/129279692364812/Nullscape"
+  },
+  "rm -rf": {
+    "response": " ",
+    "redirect": "https://eleenthetyasi.neocities.org/not_found"
+  },
+  "john":
+  {
+    "response": "the father to mercredi. a kind man.",
+    "statusClass": "success-text"
+  },
+  "cosette": {
+    "response": "the lapine girlfriend of mercredi.",
+    "statusClass": "success-text"
+  },
+  "fawfulsminion":
+  {
+    "response": "known lover of nico. has good videos. eleen watches his stuff constantly.",
+    "statusClass": "friend-name"
+  },
+  "buckbumble":
+  {
+    "response": "it's time to rock with the bickity buck bumble-",
+    "redirect": "https://www.youtube.com/watch?v=K0DDY299Ly4"
+  },
+  "luna_aura": {
+    "response": "the meddlesome magic mew... good at programming.",
+    "statusClass": "friend-name"
+  },
+  "cloudbow_rose": {
+    "response": "wouldn't you like to know, weatherpony.",
+    "statusClass": "friend-name"
+  },
+  "zazagrub": {
+    "response": "A lovely creature that eleen pays a lot of respect to. inspired her work.",
+    "statusClass": "friend-name"
+  },
+  "thefastestlink": {
+    "response": "A man of few words... Tends to fluctuate between games...",
+    "statusClass": "friend-name"
+  },
+  "chocolian":{
+    "response":"Someone who has a kind heart, troubled. A grand sense of humor.",
+    "statusClass": "friend-name"
+  },
+  "danny5247":{
+    "response": "the leader of the ubers, legendary for impossible feats.",
+    "redirect": "https://www.youtube.com/watch?v=dLpRJEXuwR4",
+    "statusClass": "friend-name"
+  },
+  "fun_woomy": {
+    "response": "lovely friend of eleens, someone they care a lot about",
+    "statusClass": "friend-name"
+  },
+  "clowitty":{
+    "response": "this has got to be one of the cheesiest ways to say i love you",
+    "statusClass": "friend-name"
+  },
+  "princequincy":{
+    "response": "Kindhearted bloonkin princess with a lot of affection.",
+    "statusClass": "friend-name"
+  },
+  "yoshiracer_dylan":{
+    "response": "Even without wings, you can still fly.",
+    "statusClass": "friend-name"
+  },
+  "dandyroot":{
+    "response": "A possum, or a leafeon. Has a bright personality and attitude.",
+    "statusClass": "friend-name"
+  },
+  "toadbup": {
+    "response": "I like the purple mushroom man too. Hey, if he sees this, what kinda code should I add here for him?"
+  },
+  "bonzibuddy": {
+    "response": "the best spyware ever <3",
+    "redirect": "https://www.youtube.com/watch?v=ekfuzj1zDZo"
+  },
+  "mime":{
+    "response": "ITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPYITJUSTMAKESYOUHAPPY"
+  },
+  "bluebloodybastard":{
+    "response": "oh yeah, sonic.exe is a thing.",
+    "redirect": "https://youtu.be/wpqwWWX4P1o"
+  },
+  "69": {
+    "response": "Nice."
+  },
+  "420": {
+    "response": "Nice."
+  },
+  "87": {
+    "response": "WAS THAT THE BITE OF 87?!",
+    "redirect": "https://www.youtube.com/watch?v=NMN9vACGcyE"
+  },
+  "67": {
+    "response": "... shut the fuck up-",
+    "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
+  },
+  "1924": {
+    "response": "... shut the fuck up-",
+    "redirect": "https://youtu.be/14IJJBIncrc?si=qIC6wbKWoveUkezv"
+  },
+  "hello": {
+    "response": "... you greet the void, but nothing happens."
+  },
+  "hi": {
+    "response": "... the void isn't much for smalltalk."
+  },
+  "fuck you": {
+    "response": "Rude."
+  },
+  "rickroll": {
+    "response": "you fool. you've summoned him here.",
+    "redirect": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "potionseller": {
+    "response": "my potions are too strong for you, traveler...",
+    "redirect": "https://www.youtube.com/watch?v=R_FQU4KzN7A"
+  },
+  "givemecodes": {
+    "response": "No.",
+    "redirect": "https://eleenthetyasi.neocities.org/403"
+  },
+  "afternight": {
+    "response": "a rofnf game... one that eleen much likes.",
+    "redirect": "https://www.roblox.com/games/13042495892/Project-Afternight"
+  },
+  "bestkh3scene": {
+    "response": "My guess is nobody's ever loved you before!",
+    "redirect": "https://www.youtube.com/watch?v=ZAxG-gJqDwI"
+  },
+  "doom": {
+    "response": "CLOWNBOY! THATS WHAT YOU ARE!",
+    "redirect": "https://www.youtube.com/watch?v=OmcvTEynArQ"
+  },
+  "opensource": {
+    "response": "eleen's website is... fully open source. including how i work... this may spoil other codes.",
+    "redirect": "https://github.com/EleenTyasi/eleenlinkrepo",
+    "statusClass": "success-text"
+  },
+  "idle": {
+    "response": "i got an idle game for you then.",
+    "redirect": "/idle",
+    "statusClass": "success-text"
+  }
+}

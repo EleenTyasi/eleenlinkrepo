@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const codesPath = path.join(__dirname, '..', 'codes.json');
+const configCodesPath = path.join(__dirname, '..', 'config', 'codes.json');
+const rootCodesPath = path.join(__dirname, '..', 'codes.json');
+const codesPath = fs.existsSync(configCodesPath) ? configCodesPath : rootCodesPath;
 const voidPath = path.join(__dirname, '..', 'public', 'void.html');
 
 // DJB2 Hash function
