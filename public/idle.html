@@ -248,6 +248,14 @@
           try {
             const parsed = JSON.parse(saved);
             game = { ...game, ...parsed, upgrades: { ...game.upgrades, ...(parsed.upgrades || {}) } };
+
+            // Clamp any existing upgrades that exceed their max limit
+            (config.upgrades || []).forEach(u => {
+              if (u.max && (game.upgrades[u.id] || 0) > u.max) {
+                game.upgrades[u.id] = u.max;
+              }
+            });
+
             game.patPower = calculatePatPower();
 
             if (parsed.lastTimestamp) {
