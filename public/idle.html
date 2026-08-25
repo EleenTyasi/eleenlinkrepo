@@ -279,14 +279,19 @@
         }
       }
 
-      function saveGame(showNotice = false) {
+      function saveGame(showNotice = false, isAuto = false) {
         game.lastTimestamp = Date.now();
         localStorage.setItem('eleen_idle_save', JSON.stringify(game));
-        if (showNotice) {
-          const status = document.getElementById('save-status');
-          if (status) {
+        const status = document.getElementById('save-status');
+        if (status) {
+          if (showNotice) {
+            status.style.color = 'rgb(212, 162, 224)';
             status.textContent = config.savedNoticeText || 'Progress saved locally on your device!';
             setTimeout(() => { status.textContent = ''; }, 3000);
+          } else if (isAuto) {
+            status.style.color = '#555';
+            status.textContent = 'Auto-saved...';
+            setTimeout(() => { if (status.textContent === 'Auto-saved...') status.textContent = ''; }, 1000);
           }
         }
       }
@@ -454,8 +459,14 @@
             }
           }, 100);
 
-          // Auto-save every 5 seconds
-          setInterval(saveGame, 5000);
+          // Auto-save every 3 seconds with subtle visual feedback
+          setInterval(() => saveGame(false, true), 3000);
+
+          // Auto-save instantly when leaving tab or closing window
+          window.addEventListener('beforeunload', () => saveGame());
+          document.addEventListener('visibilitychange', () => {
+            if (document.hidden) saveGame();
+          });
         });
     </script>
   </body>
