@@ -97,136 +97,9 @@
     <hr>
     <p><a href="/">home</a> | <a href="/links">links</a> | <a href="/projects">projects</a> | <a href="/blog">blog</a></p>
 
+    <script src="/idle-config.js"></script>
     <script>
-      // Default localization config in case fetch fails
-      let config = {
-              "pageTitle": "cat petting sim 2k26 | eleen",
-              "heading": "cat petting sim 2k26 ultra hd final mix",
-              "subheading": "click it. become catpetter elite",
-              "currencyName": "Pats",
-              "currencyNameSingular": "Pet",
-              "clickButtonText": "🐾 PET THE CAT 🐾",
-              "rateSuffix": "pps",
-              "clickSuffix": "pats per click",
-              "upgradesHeader": "Upgrades",
-              "ownedText": "Owned",
-              "buyText": "Buy",
-              "saveButtonText": "save game",
-              "resetButtonText": "reset save data",
-              "savedNoticeText": "Progress saved locally on your device!",
-              "resetConfirmText": "Are you sure you want to reset your progress?",
-              "welcomeBackMessage": "Welcome back! While you were away for {seconds} seconds, you earned {pats} {currency}!",
-              "remeow": {
-                      "title": "Remeow (Prestige)",
-                      "buttonText": "✨ REMEOW ✨",
-                      "minPats": 5000,
-                      "costMultiplier": 2.5,
-                      "multiplierPerRemeow": 0.25,
-                      "description": "Reset your pats and upgrades to gain a permanent +25% global multiplier on ALL online & offline pats!",
-                      "confirmText": "Are you sure you want to Remeow? This will reset your current pats and upgrades, but grants a permanent +25% multiplier to ALL future pats!"
-              },
-              "playerCounter": {
-                      "title": "🐾 UNIQUE PLAYERS 🐾",
-                      "newPlayerTag": "Welcome! You're a new unique player! 🐾",
-                      "returningPlayerTag": "Welcome back, player! 🐾"
-              },
-              "upgrades": [
-                      {
-                              "id": "patter",
-                              "name": "weak patter",
-                              "description": "+1 Pat per click",
-                              "baseCost": 15,
-                              "costMultiplier": 1.15,
-                              "type": "click",
-                              "value": 1
-                      },
-                      {
-                              "id": "bothhands",
-                              "name": "twohanded patter",
-                              "description": "+3 pats per click.",
-                              "baseCost": 20,
-                              "costMultiplier": 1.15,
-                              "type": "click",
-                              "value": 3
-                      },
-                      {
-                              "id": "megapatter",
-                              "name": "megapatter",
-                              "description": "+8 pats per click.",
-                              "baseCost": 80,
-                              "costMultiplier": 1.25,
-                              "type": "click",
-                              "value": 8
-                      },
-                      {
-                              "id": "autoPatter",
-                              "name": "auto-patter",
-                              "description": "+1 Pat per second",
-                              "baseCost": 50,
-                              "costMultiplier": 1.15,
-                              "type": "pps",
-                              "value": 1
-                      },
-                      {
-                              "id": "catnip",
-                              "name": "catnip",
-                              "description": "+5 Pats per second",
-                              "baseCost": 200,
-                              "costMultiplier": 1.15,
-                              "type": "pps",
-                              "value": 5
-                      },
-                      {
-                              "id": "birdnest",
-                              "name": "bird nest",
-                              "description": "+10 pats per second; expensive",
-                              "baseCost": 500,
-                              "costMultiplier": 1.65,
-                              "type": "pps",
-                              "value": 10
-                      },
-                      {
-                              "id": "criticalpats",
-                              "name": "critical pets",
-                              "description": "while petting the cat, rarely attain triple the pets",
-                              "baseCost": 200,
-                              "costMultiplier": 1.15,
-                              "type": "crits",
-                              "value": 5,
-                              "max": 15
-                      },
-                      {
-                              "id": "critpps",
-                              "name": "automatic feeder",
-                              "description": "pat per second items have a rare chance to crit.",
-                              "baseCost": 1400,
-                              "costMultiplier": 1.15,
-                              "type": "ppscrits",
-                              "value": 5,
-                              "max": 15
-                      },
-                      {
-                              "id": "brushybrush",
-                              "name": "brushy brush",
-                              "description": "+5 pats earned while offline, +2 when clicking",
-                              "baseCost": 200,
-                              "costMultiplier": 1.15,
-                              "type": "offlineboost",
-                              "value": 5,
-                              "max": 1
-                      },
-                      {
-                              "id": "offlinecrits",
-                              "name": "cat bed",
-                              "description": "while offline, sometimes get critical pats.",
-                              "baseCost": 500,
-                              "costMultiplier": 1.25,
-                              "type": "offlinecrits",
-                              "value": 1,
-                              "max": 1
-                      }
-              ]
-      };
+      let config = window.IDLE_CONFIG || {};
 
       let game = {
         pats: 0,
@@ -598,28 +471,14 @@
         }
       });
 
-      // Load external localization config
-      fetch('/idle-config.json')
-        .then(res => res.json())
-        .then(data => {
-          if (data && Array.isArray(data.upgrades)) {
-            const upgradeMap = new Map();
-            (config.upgrades || []).forEach(u => upgradeMap.set(u.id, u));
-            (data.upgrades || []).forEach(u => upgradeMap.set(u.id, { ...(upgradeMap.get(u.id) || {}), ...u }));
-            config = { ...config, ...data, upgrades: Array.from(upgradeMap.values()) };
-          } else {
-            config = { ...config, ...data };
-          }
-        })
-        .catch(err => console.log('Using default localization config'))
-        .finally(() => {
-          applyLocalization();
-          loadGame();
-          renderUpgrades();
-          updateUI();
-          initUniquePlayerCounter();
+      // Initialize game directly from window.IDLE_CONFIG
+      applyLocalization();
+      loadGame();
+      renderUpgrades();
+      updateUI();
+      initUniquePlayerCounter();
 
-          // Game loop (runs every 1 second to cleanly add PPS)
+      // Game loop (runs every 1 second to cleanly add PPS)
           setInterval(() => {
             let pps = getPps();
             if (pps > 0) {
@@ -662,7 +521,6 @@
           document.addEventListener('visibilitychange', () => {
             if (document.hidden) saveGame();
           });
-        });
     </script>
   </body>
 </html>
